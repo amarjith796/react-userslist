@@ -1,14 +1,7 @@
 import React, { Component } from "react";
-import {
-  Image,
-  ListGroup,
-  ListGroupItem,
-  Button,
-  Grid,
-  Row,
-  Col
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Image } from "react-bootstrap";
+import { NavLink as RRNavLink } from "react-router-dom";
+import { Row, Col, Button, ListGroup, ListGroupItem } from "reactstrap";
 import BlockUi from "react-block-ui";
 import "react-block-ui/style.css";
 class Users extends Component {
@@ -17,35 +10,24 @@ class Users extends Component {
     const { users, loading } = this.props.users;
     return (
       <BlockUi tag="div" blocking={loading}>
-        <Grid>
-          <Row className="show-grid">
-            <Col xs={12} md={4} mdOffset={4}>
-              <Button
-                bsStyle="primary"
-                bsSize="large"
-                block
-                onClick={fetchusers}
-              >
-                Fetch Users
-              </Button>
-              {users.length === 0 ? (
-                <h2 style={{ textAlign: "center" }}>
-                  Please Click on Fetch Users button
-                </h2>
-              ) : (
-                <ListGroup>
-                  {users.map((user, i) => (
-                    <UsersLists
-                      key={i}
-                      {...user}
-                      onClick={() => setUser(user)}
-                    />
-                  ))}
-                </ListGroup>
-              )}
-            </Col>
-          </Row>
-        </Grid>
+        <Row className="show-grid">
+          <Col xs="12" md="4" md={{ size: 4, offset: 4 }}>
+            <Button color="primary" block onClick={fetchusers}>
+              Fetch Users
+            </Button>
+            {users.length === 0 ? (
+              <h2 style={{ textAlign: "center" }}>
+                Please Click on Fetch Users button
+              </h2>
+            ) : (
+              <ListGroup>
+                {users.map((user, i) => (
+                  <UsersLists key={i} {...user} onClick={() => setUser(user)} />
+                ))}
+              </ListGroup>
+            )}
+          </Col>
+        </Row>
       </BlockUi>
     );
   }
@@ -53,24 +35,21 @@ class Users extends Component {
 
 const UsersLists = props => {
   return (
-    <ListGroupItem>
-      <Button
-        componentClass={Link}
-        onClick={props.onClick}
-        href={`/user/${props.login.username}`}
-        to={`/user/${props.login.username}`}
-        block
-        style={{ textAlign: "left" }}
+    <ListGroupItem
+      tag={RRNavLink}
+      to={`/user/${props.login.username}`}
+      onClick={props.onClick}
+      action
+    >
+      <Image src={props.picture.thumbnail} style={{ borderRadius: "70px" }} />
+      <p
+        style={{
+          display: "inline-block",
+          marginLeft: "20px"
+        }}
       >
-        <Image src={props.picture.thumbnail} circle xs={6} md={6} />
-        <h6
-          style={{
-            display: "inline-block",
-            marginLeft: "20px",
-            fontWeight: "bold"
-          }}
-        >{`${props.login.username}`}</h6>
-      </Button>
+        {`${props.login.username}`}
+      </p>
     </ListGroupItem>
   );
 };

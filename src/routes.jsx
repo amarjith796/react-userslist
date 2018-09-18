@@ -5,7 +5,7 @@ import UserProfile from "./containers/userProfile";
 import Users from "./containers/users";
 import NavbarComponent from "./components/navbar";
 import Error from "./components/error";
-
+import { Container } from "reactstrap";
 const Home = () => {
   return (
     <div style={{ textAlign: "center" }}>
@@ -33,18 +33,20 @@ const AppRouter = () => (
   <Router>
     <div>
       <NavbarComponent />
-      <Switch>
-        {routes.map((route, index) => (
-          <Route
-            key={index}
-            path={route.path}
-            exact
-            strict
-            component={route.main}
-          />
-        ))}
-        <Route exact strict component={Error} />
-      </Switch>
+      <Container>
+        <Switch>
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              exact
+              strict
+              component={route.main}
+            />
+          ))}
+          <Route exact strict component={Error} />
+        </Switch>
+      </Container>
     </div>
   </Router>
 );
