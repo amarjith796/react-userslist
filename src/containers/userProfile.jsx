@@ -1,7 +1,7 @@
 import { getUserProfile } from "../actions/userProfile";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
-import UserProfile from "../components/userProfile";
+import UserProfile from "../components/UserProfile/userProfile";
 
 const userProfileSelector = createSelector(
   state => state.userProfile,

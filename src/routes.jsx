@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import UserProfile from "./containers/userProfile";
 import Users from "./containers/users";
-import NavbarComponent from "./components/navbar";
-import Error from "./components/error";
-import { Container } from "reactstrap";
+import NavbarComponent from "./components/NavBar/navbar";
+import Error from "./components/Error404Page/error";
+import Charts from "./components/Charts/Charts";
+// import { Container } from "reactstrap";
 const Home = () => {
   return (
     <div style={{ textAlign: "center" }}>
@@ -33,7 +34,8 @@ const AppRouter = () => (
   <Router>
     <div>
       <NavbarComponent />
-      <Container>
+      {/* <Container> */}
+      <div style={{ position: "relative", top: "70px" }}>
         <Switch>
           {routes.map((route, index) => (
             <Route
@@ -44,9 +46,12 @@ const AppRouter = () => (
               component={route.main}
             />
           ))}
+          <Route path="/charts" exact strict component={Charts} />
+          <Route path="/charts/:chartname" exact strict component={Charts} />
           <Route exact strict component={Error} />
         </Switch>
-      </Container>
+      </div>
+      {/* </Container> */}
     </div>
   </Router>
 );

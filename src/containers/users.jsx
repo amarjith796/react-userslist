@@ -1,7 +1,7 @@
 import { fetchusers, setUser } from "../actions/users";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
-import Users from "../components/users";
+import Users from "../components/Users/users";
 
 const usersSelector = createSelector(state => state.users, users => users);
 

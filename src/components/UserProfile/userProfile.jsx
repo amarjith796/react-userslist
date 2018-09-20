@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Card, CardImg, CardText, CardBody } from "reactstrap";
+import { Row, Col, Card, CardText, CardBody } from "reactstrap";
 import { Image } from "react-bootstrap";
 import "./userProfile.css";
 class UserProfile extends Component {
@@ -8,8 +8,8 @@ class UserProfile extends Component {
       return (
         <div style={{ textAlign: "center" }}>
           <h2>
-            User
-            <b style={{ color: "red" }}>{this.props.match.params.username}</b>
+            User{" "}
+            <b style={{ color: "red" }}>{this.props.match.params.username}</b>{" "}
             not Found
           </h2>
         </div>

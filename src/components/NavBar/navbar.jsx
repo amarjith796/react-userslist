@@ -28,9 +28,9 @@ class NavbarComponent extends Component {
   }
   render() {
     return (
-      <Navbar color="light" light expand="md">
+      <Navbar color="dark" dark expand="md" fixed="top">
         <NavbarBrand tag={RRNavLink} to="/">
-          reactstrap
+          Reactstrap
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
@@ -50,10 +50,12 @@ class NavbarComponent extends Component {
                 Options
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem tag={RRNavLink} to="/charts">
+                  Charts
+                </DropdownItem>
+                <DropdownItem>About</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
+                <DropdownItem>Logout</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>

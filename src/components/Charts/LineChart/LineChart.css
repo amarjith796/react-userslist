@@ -1,0 +1,27 @@
+path {
+  stroke: #2ac3cb;
+  stroke-width: 1;
+  fill: none;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: lightgrey;
+}
+
+.x.axis .minor {
+  stroke-opacity: 0.5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line,
+.y.axis path {
+  fill: none;
+  stroke: #000;
+}
