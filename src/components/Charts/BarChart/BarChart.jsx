@@ -22,8 +22,8 @@ class BarChart extends Component {
   componentDidMount() {
     // set the dimensions and margins of the graph
     var margin = { top: 20, right: 20, bottom: 30, left: 50 },
-      width = 900 - margin.left - margin.right,
-      height = 400 - margin.top - margin.bottom;
+      width = this.props.width - margin.left - margin.right,
+      height = this.props.height - margin.top - margin.bottom;
 
     // set the ranges
     var x = d3
@@ -36,11 +36,13 @@ class BarChart extends Component {
       .select("body")
       .append("div")
       .attr("class", "toolTip");
+    var color = d3.scaleOrdinal(d3["schemeSet1"]);
+
     // append the svg object to the body of the page
     // append a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     var svg = d3
-      .select("#bargraph")
+      .select("#" + this.props.id)
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -67,17 +69,25 @@ class BarChart extends Component {
       .enter()
       .append("rect")
       .attr("class", "bar")
+      .style("fill", function(d) {
+        return color(d.salesperson);
+      })
       .attr("x", function(d) {
         return x(d.salesperson);
       })
       .attr("width", x.bandwidth())
-      .attr("y", function(d) {
-        return y(d.sales);
-      })
-      .attr("height", function(d) {
-        return height - y(d.sales);
-      })
+      .attr("y", height)
       .on("mouseover", function(d) {
+        d3.select(this)
+          .transition()
+          .duration(400)
+          .attr("width", x.bandwidth())
+          .attr("y", function(d) {
+            return y(d.sales) - 10;
+          })
+          .attr("height", function(d) {
+            return height - y(d.sales) + 10;
+          });
         tooltip
           .html("Name:" + d.salesperson + "<br>" + "Sales:" + d.sales)
           .style("display", "inline-block")
@@ -92,6 +102,29 @@ class BarChart extends Component {
       })
       .on("mouseout", function(d) {
         tooltip.style("display", "none");
+        d3.select(this)
+          .transition()
+          .duration(400)
+          .attr("width", x.bandwidth())
+          .attr("y", function(d) {
+            return y(d.sales);
+          })
+          .attr("height", function(d) {
+            return height - y(d.sales);
+          });
+      })
+      .transition()
+      .duration(1000)
+      .delay(function(d, i) {
+        return i * 50;
+      })
+      .attr("y", function(d) {
+        return y(d.sales);
+      })
+      .ease(d3.easeLinear)
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) {
+        return height - y(d.sales);
       });
 
     // add the x Axis
@@ -107,9 +140,14 @@ class BarChart extends Component {
   render() {
     return (
       <div
-        id="bargraph"
-        className="barGraph"
-        style={{ position: "absolute", top: "50px", left: 0, float: "left" }}
+        id={this.props.id}
+        className={this.props.class_name}
+        style={{
+          position: "absolute",
+          top: this.props.top + "px",
+          left: 0,
+          float: "left"
+        }}
       />
     );
   }

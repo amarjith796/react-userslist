@@ -3,7 +3,10 @@ path {
   stroke-width: 1;
   fill: none;
 }
-
+.data-circle {
+  stroke: #2ac3cb;
+  fill: #2ac3cb;
+}
 .axis {
   shape-rendering: crispEdges;
 }
@@ -24,4 +27,29 @@ path {
 .y.axis path {
   fill: none;
   stroke: #000;
+}
+.toolTip {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: absolute;
+  display: none;
+  width: auto;
+  height: auto;
+  background: none repeat scroll 0 0 white;
+  border: 0 none;
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: -3px 3px 15px #888888;
+  color: black;
+  font: 12px sans-serif;
+  padding: 5px;
+  text-align: justify;
+}
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.hover-line {
+  stroke: #2ac3cb;
+  stroke-width: 2px;
+  stroke-dasharray: 3, 3;
 }

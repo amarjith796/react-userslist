@@ -15,8 +15,8 @@ const data = [
 
 class PieChart extends Component {
   componentDidMount() {
-    var width = 900,
-      height = 400,
+    var width = this.props.width,
+      height = this.props.height,
       radius = Math.min(width, height) / 2;
 
     var color = d3.scaleOrdinal(d3["schemeSet1"]);
@@ -41,9 +41,18 @@ class PieChart extends Component {
       .select("body")
       .append("div")
       .attr("class", "toolTip");
-
+    function tweenPie(finish) {
+      var start = {
+        startAngle: 0,
+        endAngle: 0
+      };
+      var interpolator = d3.interpolate(start, finish);
+      return function(d) {
+        return arc(interpolator(d));
+      };
+    }
     var svg = d3
-      .select("#pieChart")
+      .select("#" + this.props.id)
       .append("svg")
       .attr("width", width)
       .attr("height", height);
@@ -88,7 +97,10 @@ class PieChart extends Component {
       .on("mouseout", function(d) {
         d3.select(this).style("stroke-width", "1px");
         tooltip.style("display", "none");
-      });
+      })
+      .transition()
+      .duration(1000)
+      .attrTween("d", tweenPie);
 
     g.append("text")
       .attr("transform", function(d) {
@@ -122,9 +134,7 @@ class PieChart extends Component {
       .enter()
       .append("g")
       .attr("transform", function(d, i) {
-        return (
-          "translate(" + (window.innerWidth - width) + "," + (i * 15 + 20) + ")"
-        ); // place each legend on the right and bump each one down 15 pixels
+        return "translate(" + width / 3 + "," + (i * 15 + 20) + ")"; // place each legend on the right and bump each one down 15 pixels
       })
       .attr("class", "legend");
 
@@ -166,9 +176,14 @@ class PieChart extends Component {
   render() {
     return (
       <div
-        id="pieChart"
-        className="pieChart"
-        style={{ position: "absolute", top: "50px", left: 0, float: "left" }}
+        id={this.props.id}
+        className={this.props.class_name}
+        style={{
+          position: "absolute",
+          top: this.props.top + "px",
+          left: 0,
+          float: "left"
+        }}
       />
     );
   }
