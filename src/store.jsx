@@ -15,7 +15,8 @@ import rootReducer from "./reducers";
 //   return result;
 // };
 
-const middleware = [logger, promise()];
+// const middleware = [logger, promise()];
+const middleware = [promise()];
 const allStoreEnhancers = compose(
   applyMiddleware(...middleware),
   window.devToolsExtension ? window.devToolsExtension() : f => f

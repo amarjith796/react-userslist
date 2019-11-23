@@ -12,8 +12,7 @@ const initalState = {
 
 // REDCUER
 export default function userProfile(state = initalState, { type, payload }) {
-  let users;
-
+  let users = [...state.users];
   switch (type) {
     case FETCH_USERS_PENDING:
       return {
@@ -21,7 +20,7 @@ export default function userProfile(state = initalState, { type, payload }) {
         loading: true
       };
     case FETCH_USERS_RECEIEVED:
-      users = payload.data.results;
+      users = users.concat(payload.data.results);
       return {
         ...state,
         loading: false,

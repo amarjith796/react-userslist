@@ -3,12 +3,12 @@ const FETCH_USERS = "FETCH_USERS";
 export const FETCH_USERS_PENDING = "FETCH_USERS_PENDING";
 export const FETCH_USERS_RECEIEVED = "FETCH_USERS_FULFILLED";
 export const FETCH_USERS_REJECTED = "FETCH_USERS_REJECTED";
-const url = "https://randomuser.me/api/?results=5";
+const url = "https://randomuser.me/api/?results=";
 
-export const fetchusers = () => {
+export const fetchusers = (size) => {
   return {
     type: FETCH_USERS,
-    payload: ApiService(url)
+    payload: ApiService(`${url+size}`)
   };
 };
 
