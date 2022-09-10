@@ -20,7 +20,7 @@ export default function userProfile(state = initalState, { type, payload }) {
         loading: true
       };
     case FETCH_USERS_RECEIEVED:
-      users = users.concat(payload.data.results);
+      users = users?.concat(payload.data?.results);
       return {
         ...state,
         loading: false,
