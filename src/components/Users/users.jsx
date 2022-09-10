@@ -4,9 +4,8 @@ import { NavLink as RRNavLink } from "react-router-dom";
 import { Row, Col, Button, ListGroup, ListGroupItem } from "reactstrap";
 import BlockUi from "react-block-ui";
 import "react-block-ui/style.css";
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from "react-infinite-scroll-component";
 class Users extends Component {
-
   componentDidMount() {
     const { fetchusers } = this.props;
     fetchusers(10);
@@ -16,13 +15,13 @@ class Users extends Component {
     const { fetchusers } = this.props;
     fetchusers(10);
   };
-  refresh = () =>{
+  refresh = () => {
     console.log("refresh");
-    this.props.fetchusers(5)
-  }
+    this.props.fetchusers(5);
+  };
 
   render() {
-    const { setUser, fetchusers,hasMoreStores } = this.props;
+    const { setUser, fetchusers, hasMoreStores } = this.props;
     const { users, loading } = this.props.users;
     return (
       <BlockUi tag="div" blocking={loading}>
@@ -32,35 +31,38 @@ class Users extends Component {
               Fetch Users
             </Button> */}
             {users.length === 0 ? (
-              <h2 style={{ textAlign: "center" }}>
-                Loading...
-              </h2>
+              <h2 style={{ textAlign: "center" }}>Loading...</h2>
             ) : (
-
-                <InfiniteScroll
-                  dataLength={users.length} //This is important field to render the next data
-                  next={this.fetchMoreData}
-                  hasMore={hasMoreStores}
-                  loader={<h4>Loading...</h4>}
-                  refreshFunction={this.refresh}
-                  pullDownToRefresh
-                  pullDownToRefreshContent={
-                    <h3 style={{textAlign: 'center'}}>&#8595; Pull down to refresh</h3>
-                  }
-                  releaseToRefreshContent={
-                    <h3 style={{textAlign: 'center'}}>&#8593; Release to refresh</h3>
-                  }
-                  initialScrollY= {1000}
-                  >
-                  <ListGroup>
-                    {users.map((user, i) => (
-                      <UsersLists key={i} {...user} onClick={() => setUser(user)} />
-                    ))}
-                  </ListGroup>
-                </InfiniteScroll>
-
-
-              )}
+              <InfiniteScroll
+                dataLength={users.length} //This is important field to render the next data
+                next={this.fetchMoreData}
+                hasMore={hasMoreStores}
+                loader={<h4>Loading...</h4>}
+                refreshFunction={this.refresh}
+                pullDownToRefresh
+                pullDownToRefreshContent={
+                  <h3 style={{ textAlign: "center" }}>
+                    &#8595; Pull down to refresh
+                  </h3>
+                }
+                releaseToRefreshContent={
+                  <h3 style={{ textAlign: "center" }}>
+                    &#8593; Release to refresh
+                  </h3>
+                }
+                initialScrollY={1000}
+              >
+                <ListGroup>
+                  {users.map((user, i) => (
+                    <UsersLists
+                      key={i}
+                      {...user}
+                      onClick={() => setUser(user)}
+                    />
+                  ))}
+                </ListGroup>
+              </InfiniteScroll>
+            )}
           </Col>
         </Row>
       </BlockUi>
@@ -68,22 +70,22 @@ class Users extends Component {
   }
 }
 
-const UsersLists = props => {
+const UsersLists = (props) => {
   return (
     <ListGroupItem
       tag={RRNavLink}
-      to={`/user/${props.login.username}`}
+      to={`/user/${props?.login?.username}`}
       onClick={props.onClick}
       action
     >
-      <Image src={props.picture.thumbnail} style={{ borderRadius: "70px" }} />
+      <Image src={props?.picture?.thumbnail} style={{ borderRadius: "70px" }} />
       <p
         style={{
           display: "inline-block",
           marginLeft: "20px"
         }}
       >
-        {`${props.login.username}`}
+        {`${props?.login?.username}`}
       </p>
     </ListGroupItem>
   );
